@@ -19,14 +19,14 @@ using namespace std;
 
 //Function Prototypes
 int *fillArray( int );
-int **fillArray( int, int );
+int *fillArray( int, int );
 void clean( int * );
 void clean( int **, int );
 void printArray( int *arr, int n );
 void printArray( int *arr, int n, int perLine );
-void printArray( int **arr, int row, int cols );
+void printArray( int *arr, int row, int cols, int perLine );
 void sortArray( int *arr, int n );
-void sortArray( int **arr, int rows, int cols );
+void sortArray( int *arr, int rows, int cols );
 
 //Execution begins here at main
 int main(int argc, char** argv) {
@@ -38,7 +38,7 @@ int main(int argc, char** argv) {
     int rows;
     int cols;
     int *array1D;
-    int **array2D;
+    int *array2D;
 
     //Initialize Variables
     rows = 10;
@@ -60,16 +60,16 @@ int main(int argc, char** argv) {
 
 
     cout << "Here is the unsorted 2D array" << endl;
-    printArray( array2D, rows, cols );
+    printArray( array2D, rows, cols, cols );
 
     sortArray( array2D, rows, cols );
 
     cout << "Here is the sorted 2D array" << endl;
-    printArray( array2D, rows, cols );
+    printArray( array2D, rows, cols, cols );
 
     //Clean up memory and files
     clean( array1D );
-    clean( array2D, rows );
+    clean( array2D );
 
     //Exit the Program
     return 0;
@@ -83,12 +83,11 @@ int *fillArray( int n ){
   return arr;
 }
 
-int **fillArray( int row, int col ){
-  int **array = new int*[row];
+int *fillArray( int row, int col ){
+  int *array = new int[row * col];
   for( int i = 0; i < row; i++ ){
-    array[i] = new int[col];
     for( int j = 0; j < col; j++ ){
-      array[i][j] = rand() % 90 + 10; 
+      *(array + i * col + j) = rand() % 90 + 10; 
     }
   }
   return array;
@@ -125,11 +124,11 @@ void printArray( int *arr, int n, int perLine ){
   cout << endl;
 }
 
-void printArray( int **arr, int row, int cols ){
+void printArray( int *arr, int row, int cols, int perLine ){
   for( int i = 0; i < row; i++ ){
     for ( int j = 0; j < cols; j++)
     {
-      cout << arr[i][j] << " ";
+      cout << *(arr + i * cols + j) << " ";
     }
     cout << endl;
   }
@@ -148,8 +147,8 @@ void sortArray( int *arr, int n ){
   }
 }
 
-void sortArray( int **arr, int row, int cols ){
+void sortArray( int *arr, int row, int cols ){
   for( int i = 0; i < row; i++ ){
-    sortArray( arr[i], cols );
+    sortArray( arr + (i * cols), cols );
   }
 }
