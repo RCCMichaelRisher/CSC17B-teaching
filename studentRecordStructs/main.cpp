@@ -167,7 +167,7 @@ void printRoster(const Roster *const roster) {
 // Save the roster to a binary file
 void saveRoster(Roster *roster, string filename) {
     ofstream output(filename, ios::binary); // Open the file in binary mode
-    if (output) {
+    if ( output.good() ) {
         output.write(reinterpret_cast<char *>(&roster->nStudents), sizeof(int)); // Write the number of students
         for (int i = 0; i < roster->nStudents; i++) {
             output.write(reinterpret_cast<char *>(&roster->students[i].id), sizeof(int)); // Write the ID
@@ -186,7 +186,7 @@ void saveRoster(Roster *roster, string filename) {
 
 void loadPrintRoster(string filename) {
     ifstream input(filename, ios::binary); // Open the file
-    if (input) {
+    if ( input.good() ) {
         int nStudents;
         input.read(reinterpret_cast<char *>(&nStudents), sizeof(int)); // Read the number of students
         Roster *roster = new Roster(nStudents); // Create a roster with the correct number of students
