@@ -34,41 +34,15 @@ struct Student {
     average = 0;
   }
 
-  Student(string name, int id, int nGrades) {
-    this->name = name;
-    this->id = id;
-    this->nGrades = nGrades;
-    grades = new int[nGrades];
-    for (int i = 0; i < nGrades; i++) {
-      grades[i] = rand() % 50 + 50;
-    }
-    calcAvg();
-  }
+  
 
   // desctructor
   ~Student() { delete[] grades; }
-
-  void calcAvg() {
-    average = 0;
-    for (int i = 0; i < nGrades; i++) {
-      average += grades[i];
-    }
-    average /= nGrades;
-  }
 };
 
 struct Roster {
   Student *students;
   int nStudents;
-
-  // constructor
-  Roster(int nStudents) {
-    this->nStudents = nStudents;
-    students = new Student[nStudents];
-  }
-
-  // destructor
-  ~Roster() { delete[] students; }
 };
 
 // Function Prototypes
@@ -76,8 +50,9 @@ void printStudent(const Student &s);
 void inputStudents(Roster *roster);
 void printRoster(const Roster *const roster);
 void saveRoster( Roster *roster, string filename );
-
 void loadPrintRoster( string filename );
+void calcAvg( Student &s );
+void clean( Roster *r );
 
 // Execution begins here at main
 int main(int argc, char **argv) {
@@ -104,7 +79,9 @@ int main(int argc, char **argv) {
     cout << "Enter number of students to add: ";
     cin >> numStudents;
 
-    roster = new Roster(numStudents);
+    roster = new Roster;
+    roster->nStudents = numStudents;
+    roster->students = new Student[numStudents];
     // init the students in the roster
     inputStudents(roster);
 
@@ -116,11 +93,19 @@ int main(int argc, char **argv) {
     printRoster(roster);
 
     //cleanup
-    delete roster;
+    clean( roster );
   }
 
   // Exit the Program
   return 0;
+}
+
+void calcAvg( Student &s ) {
+  s.average = 0;
+  for (int i = 0; i < s.nGrades; i++) {
+    s.average += s.grades[i];
+  }
+  s.average /= s.nGrades;
 }
 
 void printStudent(const Student *s) {
@@ -152,7 +137,8 @@ void inputStudents(Roster *roster) {
       roster->students[i].grades[j] = rand() % 101; // Random grade
     }
 
-    roster->students[i].calcAvg();  // Compute the average
+    //roster->students[i].calcAvg();  // Compute the average
+    calcAvg( roster->students[i] ); // Compute the average
   }
 }
 
@@ -189,7 +175,9 @@ void loadPrintRoster(string filename) {
     if ( input.good() ) {
         int nStudents;
         input.read(reinterpret_cast<char *>(&nStudents), sizeof(int)); // Read the number of students
-        Roster *roster = new Roster(nStudents); // Create a roster with the correct number of students
+        Roster *roster = new Roster; // Create a roster with the correct number of students
+        roster->nStudents = nStudents;
+        roster->students = new Student[nStudents]; // Allocate memory for the students
         for (int i = 0; i < nStudents; i++) {
             input.read(reinterpret_cast<char *>(&roster->students[i].id), sizeof(int)); // Read the ID
             int nameLength;
@@ -210,6 +198,14 @@ void loadPrintRoster(string filename) {
     } else {
         cout << "Error: Could not open file " << filename << endl; // Error message
     }
+}
+
+void clean( Roster *r ) {
+    for (int i = 0; i < r->nStudents; i++) {
+        delete[] r->students[i].grades;
+    }
+    delete[] r->students;
+    delete r;
 }
 
 //
