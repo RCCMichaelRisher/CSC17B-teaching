@@ -17,7 +17,7 @@ class Course {
         string name;
     public: 
         Course(int numStudents, string name);
-        Course();
+        Course(){}
 
         void inputStudents();
         void addProfessor();

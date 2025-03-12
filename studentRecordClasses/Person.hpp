@@ -11,7 +11,7 @@ class Person {
         string name;
         int id;
     public: 
-        Person();
+        Person(){}
         Person( string name, int id ) : name( name ), id( id ) {}
 
         // Accessors

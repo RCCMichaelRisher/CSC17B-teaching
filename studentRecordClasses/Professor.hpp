@@ -1,4 +1,4 @@
-#include "Person.cpp"
+#include "Person.hpp"
 
 using namespace std;
 class Professor : public Person {
@@ -6,7 +6,7 @@ class Professor : public Person {
         string department;
         string email;
     public: 
-        Professor();
+        Professor(){}
         Professor(string name, int id, string department, string email ) : Person(name, id), department(department), email(email) {}
         // Override display method
         virtual void print() const override {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Person.cpp"
+#include "Person.hpp"
 
 using namespace std;
 
@@ -10,7 +10,7 @@ class Student : public Person {
       int nGrades;
       float average;
     public: 
-        Student();
+        Student(){}
         Student( string name, int id, int nGrades ) : Person( name, id ), nGrades( nGrades ) {
             grades = new int[nGrades];
             average = 0;
