@@ -38,12 +38,24 @@ int main(int argc, char** argv) {
     course->addProfessor();
     //input students
     course->inputStudents();
+
+    //save to file
+    course->saveToFile( filename );
     
     //print course info
     course->print();
     
     //Clean up memory and files
     delete course;
+
+    cout << "\n\n\nLoading the course back in...\n\n";
+    //create new course from loading a binary file
+    Course *loadedCourse = new Course();
+    loadedCourse->loadFromFile( filename );
+    //print loaded course info
+    loadedCourse->print();
+    //clean up memory
+    delete loadedCourse;
     //Exit the Program
     return 0;
 }

@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef COURSE_HPP
+#define COURSE_HPP
 
 #include "Student.hpp"
 #include "Professor.hpp"
@@ -22,6 +22,8 @@ class Course {
         void inputStudents();
         void addProfessor();
         void print() const;
+        void saveToFile( string filename ) const;
+        void loadFromFile( string filename );
 
         //accessors
         int getNumStudents() const { return numStudents; }
@@ -41,3 +43,5 @@ class Course {
             delete professor; 
         }
 };
+
+#endif /* COURSE_HPP */

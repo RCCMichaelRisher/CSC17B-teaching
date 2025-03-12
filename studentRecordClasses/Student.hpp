@@ -1,4 +1,5 @@
-#pragma once
+#ifndef STUDENT_HPP
+#define STUDENT_HPP
 
 #include "Person.hpp"
 
@@ -28,9 +29,12 @@ class Student : public Person {
 
         //print function
         virtual void print() const override;
-
         //calculate average
         void calcAvg();
+        //save to file
+        void saveToFile(ofstream &outFile) const override;
+        //load from file
+        void loadFromFile(ifstream &inFile) override;
 
         //destructor
         virtual ~Student() { 
@@ -41,3 +45,4 @@ class Student : public Person {
 };
 
 
+#endif /* STUDENT_HPP */

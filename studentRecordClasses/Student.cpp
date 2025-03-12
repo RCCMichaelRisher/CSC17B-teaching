@@ -22,3 +22,18 @@ void Student::calcAvg(){
     }
     this->average /= this->nGrades;
 }
+
+void Student::saveToFile(ofstream &outFile) const  {
+    Person::saveToFile(outFile);
+    outFile.write(reinterpret_cast<const char *>(&nGrades), sizeof(nGrades));
+    outFile.write(reinterpret_cast<const char *>(grades), nGrades * sizeof(int));
+    outFile.write(reinterpret_cast<const char *>(&average), sizeof(average));
+}
+
+void Student::loadFromFile(ifstream &inFile) {
+    Person::loadFromFile(inFile);
+    inFile.read(reinterpret_cast<char *>(&nGrades), sizeof(nGrades));
+    grades = new int[nGrades];
+    inFile.read(reinterpret_cast<char *>(grades), nGrades * sizeof(int));
+    inFile.read(reinterpret_cast<char *>(&average), sizeof(average));
+}
