@@ -19,7 +19,7 @@ class Professor : public Person {
         // mutators
         void setDepartment(string department) { this->department = department; }
         void setEmail(string email) { this->email = email; }
-        void saveToFile(ofstream &outFile) const override;
+        virtual void saveToFile(ofstream &outFile) const override;
 
         //load from file
         void loadFromFile(ifstream &inFile) override;
