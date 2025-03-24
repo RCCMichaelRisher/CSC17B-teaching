@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Concentration Game</title>
+    <style>
+      .flex {
+        display: flex;
+        justify-content: center;
+      }
+    </style>
+    <script lang="javascript" src="Card.js"></script>
+    <script lang="javascript">
+      let deck = [];
+      let gameBoard = [];
+      let clicked = [-1,-1];
+      let correct = 0;
+      let username;
+      if( getCookie( 'username') === null ){
+        username = prompt("Please enter your name: ");
+        setCookie('username', username);
+      } else {
+        username = getCookie('username');
+      }
+
+      function getCookie( name ){
+        if( document.cookie.length > 0 ){
+          let cookieStart = document.cookie.indexOf( name + "=" );
+          if( cookieStart != -1 ){
+            cookieStart = cookieStart + name.length + 1;
+            let cookieEnd = document.cookie.indexOf( ";", cookieStart );
+            if( cookieEnd == -1 ) cookieEnd = document.cookie.length;
+            return unescape( document.cookie.substring( cookieStart, cookieEnd ) );
+          }
+        }
+        return null;
+      }
+
+      function setCookie( name, value, expireDays = 30 ){
+        let expireDate = new Date();
+        expireDate.setDate(expireDate.getDate() + expireDays);
+        document.cookie = name + "=" + escape(value) + ((expireDays == null) ? "" : ";expires=" + expireDate.toUTCString());
+
+      }
+
+      function start() {
+        let nCards = 52;
+        let cards = new Array(nCards);
+        for(let i=0; i<nCards; i++) {
+          cards[i] = new Card(i);
+        }
+
+        //shuffle the cards 7 times
+        for(let k=0; k<7; k++) {
+          for(let i=0; i<nCards; i++) {
+            let j = Math.floor(Math.random() * (nCards-1));
+            let temp = cards[i];
+            cards[i] = cards[j];
+            cards[j] = temp;
+          }
+        }
+
+        //put the cards in the deck
+        for(let i=0; i<nCards; i++) {
+          deck[i] = cards[i];
+        }
+
+        //Place the choosen cards on the Game Board
+        for(var i=0;i<36;i++){
+          if(i<18){
+              gameBoard[i]=deck[i];
+          }else{
+              gameBoard[i]=deck[i-18];	
+          }
+          console.log(i,gameBoard[i].cardNum);
+        }
+
+        for(let k=0; k<7; k++) {
+          for(let i=0; i<36; i++) {
+            let j = Math.floor(Math.random() * (35));
+            let temp = gameBoard[i];
+            gameBoard[i] = gameBoard[j];
+            gameBoard[j] = temp;
+          }
+        }
+
+      }
+    
+    function revealImage( current ){
+        var a = document.getElementById("cardImg"+current);
+        let img = document.getElementById("card"+current);
+        img.src = gameBoard[current].picture;
+        console.log( gameBoard[current].cardNum );
+        if(clicked[0] == -1 ){
+          clicked[0] = current;
+        } else {
+          if( clicked[0] == current ){ //prevent user from clicking the same card
+            return;
+          }
+          clicked[1] = current;
+          if( gameBoard[clicked[0]].cardNum == gameBoard[clicked[1]].cardNum ){
+              //match found
+              correct++;
+              document.getElementById("cardImg"+clicked[0]).removeAttribute("href");
+              document.getElementById("cardImg"+clicked[1]).removeAttribute("href");
+              clicked = [-1,-1];
+              document.getElementById( 'pairsCorrect').value = correct + " Pair";
+          } else {
+              //no match
+              
+              setTimeout(function(a,b){
+                  document.getElementById("card"+a).src = 'cards/Back.jpg';
+                  document.getElementById("card"+b).src = 'cards/Back.jpg';
+              }, 750, clicked[0], clicked[1]);  
+              clicked = [-1,-1];
+          }
+
+          if( correct == 18 ){
+              alert("Congratulations! You found all pairs!");
+              location.reload(true);
+          }
+        }
+    }
+      
+    </script>
+  </head>
+  <body>
+    <div>
+      <div align="right">
+        <input name="newGame" value="New Game" type="button" onClick="javascript:location.reload(true)" />
+      </div>
+      <div align="center">
+        <script>
+          document.write( `<input name="player" value="${username}" readonly size="12">`);
+        </script>
+        
+        <input id="pairsCorrect" value="0 Pair" readonly size="12">
+      </div>
+      <div>
+      <script>
+        var cardCount=0;
+        start();
+        for(row=0;row<6;row++){
+            document.write('<div class="flex">');
+            for(col=0;col<6;col++){
+                document.write('<div align="center">');
+                document.write('<a href="javascript:revealImage('+cardCount+')" id="cardImg'+cardCount+'">'); 
+                //document.write('onClick="revealImage('+cardCount+')">');
+                document.write('<img src="Cards/Back.jpg" id="card'+cardCount+'" border="0"></a></div>');
+                cardCount++;
+            }
+            document.write('</div>');
+        }
+      </script>
+      </div>
+    </div>
+  </body>
+</html>
