@@ -74,6 +74,19 @@ int main(int argc, char** argv) {
         ++j;
     }
     cout<<endl;
+
+    int array[]={0,1,2,3,4,5}; //Array to test the range of the for loop
+    //Looping Construct for in-range-loop, note: i variable scope is inside for loop
+    for(int i : array){
+        cout<<i<<" ";
+    }
+
+    //try-catch block to handle exceptions
+    try {
+        throw runtime_error("Forced exception");
+    } catch (const exception& e) {
+        cout << "Caught an exception: " << e.what() << endl;
+    }
     
     //Exit stage right!
     return 0;

@@ -69,6 +69,21 @@
             }
             document.write("</br>");
 
+            let array = [0, 1, 2, 3, 4, 5];
+            //Looping Construct for-each-loop, note: i variable scope is inside for loop
+            for (let i of array) {
+                document.write(i, " ");
+            }
+
+            //try catch block
+            try {
+                throw new Error("This is an error message");
+            } catch ( e ){
+                document.write("</br>", e.message);
+            } finally {
+                document.write("</br>Finally block executed");
+            }
+
             //Exit stage right!
             return 0;
         }
