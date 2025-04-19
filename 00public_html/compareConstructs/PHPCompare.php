@@ -79,6 +79,26 @@ EOD;
         }
         echo ("</br>");
 
+        $array = array(0, 1, 2, 3, 4, 5);
+        //Looping Construct foreach-loop, note: k variable used can't re-declare
+        foreach ($array as $i => $k) {
+            echo ($k . " ");
+        }
+
+        for ( $k in $array ) {
+            echo ($k . " ");
+        }
+
+        //try-catch block to handle exceptions
+        try{
+            throw new Exception("This is an exception");
+        } catch (Exception $e) {
+            echo ("Caught exception: " . $e->getMessage() . "</br>");
+        } finally {
+            echo ("Finally block executed</br>");
+        }
+
+
         //Exit stage right!
         return 0;
     }
