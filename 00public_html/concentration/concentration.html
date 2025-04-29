@@ -41,9 +41,13 @@
       function setCookie( name, value, expireDays = 30 ){
         let expireDate = new Date();
         expireDate.setDate(expireDate.getDate() + expireDays);
-        document.cookie = name + "=" + escape(value) + ((expireDays == null) ? "" : ";expires=" + expireDate.toUTCString());
+        document.cookie = name + "=" + escape(value) + ((expireDays == null) ? "" : ";expires=" + expireDate.toUTCString() + ";");
 
       }
+
+      function deleteCookie(name) {
+        document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      }      
 
       function start() {
         let nCards = 52;

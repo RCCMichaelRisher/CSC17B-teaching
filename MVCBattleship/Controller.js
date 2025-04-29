@@ -1,16 +1,22 @@
 /* global model, view */
 
 class Controller {
+    /**
+     * Initializes the Controller with a guess counter.
+     */
     constructor() {
         this.guesses = 0; // Counter to track the number of guesses made by the player
     }
 
-    // Method to process a player's guess
+    /**
+     * Processes the player's guess, updates the game state, and checks for victory.
+     * @param {string} guess - The player's guess (e.g., "A3").
+     */
     processGuess(guess) {
-        const location = this.parseGuess(guess); // Parse the guess into a valid board location
+        let location = this.parseGuess(guess); // Parse the guess into a valid board location
         if (location) {
             this.guesses++; // Increment the guess counter
-            const hit = model.fire(location); // Attempt to fire at the guessed location
+            let hit = model.fire(location); // Attempt to fire at the guessed location
             if (hit && model.shipsSunk === model.numShips) {
                 // If all ships are sunk, display a victory message
                 view.displayMessage("You sank all my battleships, in " 
@@ -19,7 +25,11 @@ class Controller {
         }
     }
 
-    // Method to parse the player's guess into a valid board location
+    /**
+     * Parses the player's guess into a valid board location.
+     * @param {string} guess - The player's guess (e.g., "A3").
+     * @returns {string|null} The valid board location as a string, or null if invalid.
+     */
     parseGuess(guess) {
         const alphabet = ["A", "B", "C", "D", "E", "F", "G"]; // Valid row letters
 
@@ -27,9 +37,9 @@ class Controller {
             // Validate the input length
             alert("Oops, please enter a letter and a number on the board.");
         } else {
-            const firstChar = guess.charAt(0); // Extract the row letter
-            const row = alphabet.indexOf(firstChar); // Convert the letter to a row index
-            const column = guess.charAt(1); // Extract the column number
+            let firstChar = guess.charAt(0); // Extract the row letter
+            let row = alphabet.indexOf(firstChar); // Convert the letter to a row index
+            let column = guess.charAt(1); // Extract the column number
 
             if (isNaN(row) || isNaN(column)) {
                 // Check if the row or column is invalid
@@ -46,4 +56,4 @@ class Controller {
     }
 }
 
-const controller = new Controller(); // Create an instance of the Controller class
+let controller = new Controller(); // Create an instance of the Controller class

@@ -16,11 +16,15 @@ class Model {
         ];
     }
 
-    // Method to handle firing at a guessed location
+    /**
+     * Handles firing at a guessed location.
+     * @param {string} guess - The guessed location (e.g., "34").
+     * @returns {boolean} - True if the guess hits a ship or was already hit, false otherwise.
+     */
     fire(guess) {
         for (let i = 0; i < this.numShips; i++) {
-            const ship = this.ships[i];
-            const index = ship.locations.indexOf(guess);
+            let ship = this.ships[i];
+            let index = ship.locations.indexOf(guess);
 
             // Check if the location was already hit
             if (ship.hits[index] === "hit") {
@@ -47,7 +51,14 @@ class Model {
         return false;
     }
 
-    // Method to check if a ship is completely sunk
+    /**
+     * Checks if a ship is completely sunk.
+     * @param {Object} ship - The ship object to check.
+     * @param {string[]} ship.locations - The locations of the ship.
+     * @param {string[]} ship.hits - The hit status of the ship's locations.
+     * @param {number} ship.shipLength - The length of the ship.
+     * @returns {boolean} - True if the ship is completely sunk, false otherwise.
+     */
     isSunk(ship) {
         for (let i = 0; i < ship.shipLength; i++) { // Use the ship's specific length
             if (ship.hits[i] !== "hit") {
@@ -57,11 +68,13 @@ class Model {
         return true; // All parts of the ship are hit
     }
 
-    // Generate random locations for all ships
+    /**
+     * Generates random locations for all ships and assigns them to the ships array.
+     */
     generateShipLocations() {
         let locations;
         for (let i = 0; i < this.numShips; i++) {
-            const ship = this.ships[i]; // Get the current ship
+            let ship = this.ships[i]; // Get the current ship
             do {
                 locations = this.generateShip(ship.shipLength); // Generate a new ship with its specific length
             } while (this.collision(locations)); // Ensure no collisions with existing ships
@@ -71,20 +84,28 @@ class Model {
         console.log(this.ships); // Log the ship locations for debugging
     }
 
-    // Generate a single ship's locations
+    /**
+     * Generates a single ship's locations.
+     * @param {number} shipLength - The length of the ship.
+     * @returns {string[]} - An array of location strings for the ship.
+     */
     generateShip(shipLength) {
-        const direction = Math.floor(Math.random() * 2); // Randomly choose horizontal or vertical
+        let direction = Math.floor(Math.random() * 2); // Randomly choose horizontal or vertical
         let row, col;
 
         if (direction === 1) { // Horizontal
-            row = Math.floor(Math.random() * this.boardSize);
-            col = Math.floor(Math.random() * (this.boardSize - shipLength + 1));
+            row = Math.floor(Math.random() * this.boardSize); // Random row
+
+            // Random column, ensuring the ship fits on the board
+            // min = 0, max = this.boardSize - shipLength
+            col = Math.floor(Math.random() * (this.boardSize - shipLength + 1)); // Ensure the ship fits on the board
         } else { // Vertical
-            row = Math.floor(Math.random() * (this.boardSize - shipLength + 1));
+            row = Math.floor(Math.random() * (this.boardSize - shipLength + 1)); // Ensure the ship fits on the board
             col = Math.floor(Math.random() * this.boardSize);
         }
 
-        const newShipLocations = [];
+        //add the other parts of the ship to the array
+        let newShipLocations = [];
         for (let i = 0; i < shipLength; i++) {
             if (direction === 1) {
                 newShipLocations.push(row + "" + (col + i)); // Add horizontal locations
@@ -95,10 +116,14 @@ class Model {
         return newShipLocations;
     }
 
-    // Check if a new ship's locations collide with existing ships
+    /**
+     * Checks if a new ship's locations collide with existing ships.
+     * @param {string[]} locations - The locations of the new ship.
+     * @returns {boolean} - True if there is a collision, false otherwise.
+     */
     collision(locations) {
         for (let i = 0; i < this.numShips; i++) {
-            const ship = this.ships[i];
+            let ship = this.ships[i];
             for (let j = 0; j < locations.length; j++) {
                 if (ship.locations.indexOf(locations[j]) >= 0) {
                     return true; // Collision detected
@@ -109,4 +134,4 @@ class Model {
     }
 }
 
-const model = new Model(); // Create an instance of the Model class
+let model = new Model(); // Create an instance of the Model class

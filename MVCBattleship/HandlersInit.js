@@ -4,8 +4,8 @@
 // event handlers
 
 function handleFireButton() {
-    var guessInput = document.getElementById("guessInput");
-    var guess = guessInput.value.toUpperCase();
+    let guessInput = document.getElementById("guessInput");
+    let guess = guessInput.value.toUpperCase();
 
     controller.processGuess(guess);
 
@@ -13,11 +13,7 @@ function handleFireButton() {
 }
 
 function handleKeyPress(e) {
-    var fireButton = document.getElementById("fireButton");
-
-    // in IE9 and earlier, the event object doesn't get passed
-    // to the event handler correctly, so we use window.event instead.
-    e = e || window.event;
+    let fireButton = document.getElementById("fireButton");
 
     if (e.keyCode === 13) {
             fireButton.click();
@@ -31,12 +27,12 @@ window.onload = init;
 
 function init() {
     // Fire! button onclick handler
-    var fireButton = document.getElementById("fireButton");
+    let fireButton = document.getElementById("fireButton");
     fireButton.onclick = handleFireButton;
 
     // handle "return" key press
-    var guessInput = document.getElementById("guessInput");
-    guessInput.onkeypress = handleKeyPress;
+    let guessInput = document.getElementById("guessInput");
+    guessInput.onkeydown = handleKeyPress;
 
     // place the ships on the game board
     model.generateShipLocations();
