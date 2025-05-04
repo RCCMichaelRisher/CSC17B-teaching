@@ -1,0 +1,57 @@
+<!--
+	Dr. Mark E. Lehr
+	Testing Local Storage
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Create the _Get Object</title>
+        <script src="getForm.js" defer></script>
+        <link rel="stylesheet" href="../style.css" />
+    </head>
+    <body>
+        <main>
+            <section id="inventory-display">
+                <script type="text/javascript">
+                    //Get the information from the local URL
+                    let url = document.location.href;
+                    //Call the getForm function to place into an object
+                    let $_GET = getForm(url);
+                    //Retrieve from Inventory
+                    let str = localStorage.getItem("Inventory");
+                    //If there is no inventory, create an empty array
+                    if (str == null) {
+                        str = "[]";
+                    }
+                    //Parse the inventory to an object
+                    let inventory = JSON.parse(str);
+                    //How many products are in inventory
+                    let number = inventory.length;
+                    //Add our new product to inventory
+                    inventory[number] = $_GET;
+                    //Display the array of objects
+                    document.write("The Object adding new product then parsed back to Local Storage</br>");
+                    document.write("<ul>");
+                    for (let items = 0; items < inventory.length; items++) {
+                        
+                        document.write("<li>Object " + items + "</li>");
+                        let obj = inventory[items];
+                        document.write("<ul>");
+                        for (let property in obj) {
+                            document.write("<li>" + property + " = " + obj[property] + "</li>");
+                        }
+                        document.write("</ul>");
+                        
+                    }
+                    document.write("</ul>");
+                    //Put back the object into local storage after adding
+                    str = JSON.stringify(inventory);
+                    localStorage.setItem("Inventory", str);
+                </script>
+            </section>
+        </main>
+    </body>
+</html>

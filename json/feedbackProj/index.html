@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Feedback - Day 1</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <h1>Student Feedback</h1>
+  <form id="feedbackForm">
+    <label>Name:<br><input type="text" name="name" required value="test"/></label><br>
+    <label>Email:<br><input type="email" name="email" required value="test@email.com"/></label><br>
+    <label>Feedback:<br><textarea name="feedback" required >test</textarea></label><br>
+    <button type="submit" value="JSON">Generate JSON</button>
+    <button type="submit" value="XML">Generate XML</button>
+  </form>
+
+  <h2>Generated <span class="datatype">JSON</span>:</h2>
+  <pre id="output"></pre>
+
+  <h2>Current <span class="datatype">JSON</span> Content:</h2>
+  <pre id="content" ></pre>
+
+  <script src="util.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

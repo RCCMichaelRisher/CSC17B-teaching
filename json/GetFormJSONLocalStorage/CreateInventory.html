@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Create the _Get Object</title>
+        <script src="getForm.js"></script>
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    <body>
+        <main id="inventory-display"></main>
+        <script>
+            //Create an array with 2 objects
+            var inventoryItem1={"Product":"Chicken","Inventory":"155","Price":"3.55"};
+            var inventoryItem2={"Product":"Milk","Inventory":"203","Price":"2.33"};
+            var inventory=[];
+            inventory[0]=inventoryItem1;
+            inventory[1]=inventoryItem2;
+            //Display the array
+            const displayDiv = document.getElementById("inventory-display");
+            const ul = document.createElement("ul");
+            inventory.forEach((item, index) => {
+                const li = document.createElement("li");
+                li.textContent = `Object ${index}`;
+                const innerUl = document.createElement("ul");
+                for (const property in item) {
+                    const innerLi = document.createElement("li");
+                    innerLi.textContent = `${property} = ${item[property]}`;
+                    innerUl.appendChild(innerLi);
+                }
+                li.appendChild(innerUl);
+                ul.appendChild(li);
+            });
+            displayDiv.appendChild(ul);
+            //Stringify the array
+            var str=JSON.stringify(inventory);
+            //Store into local Storage
+            localStorage.setItem("Inventory",str);
+        </script>
+    </body>
+</html>

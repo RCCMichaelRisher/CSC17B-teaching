@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guest>
+  <id>101</id>
+  <name>John Doe</name>
+  <isVIP>true</isVIP>
+  <contact>
+    <email>johndoe@example.com</email>
+    <phone>+1234567890</phone>
+  </contact>
+  <preferences>
+    <roomType>suite</roomType>
+    <bedType>king</bedType>
+    <smoking>false</smoking>
+  </preferences>
+  <pastStays>
+    <stay>
+      <hotelName>Grand Plaza</hotelName>
+      <checkIn>2023-01-15</checkIn>
+      <checkOut>2023-01-20</checkOut>
+      <amountPaid>1200.50</amountPaid>
+    </stay>
+    <stay>
+      <hotelName>Ocean View Resort</hotelName>
+      <checkIn>2022-12-05</checkIn>
+      <checkOut>2022-12-10</checkOut>
+      <amountPaid>950.75</amountPaid>
+    </stay>
+  </pastStays>
+</guest>

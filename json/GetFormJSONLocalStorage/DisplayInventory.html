@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Create the _Get Object</title>
+        <script src="getForm.js"></script>
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    <body>
+        <main id="inventory-display"></main>
+        <script>
+            // Retrieve the information from local storage
+            const str = localStorage.getItem("Inventory");
+            // Parse the information back into an array
+            const inventory = JSON.parse(str);
+
+            // Display the array
+            const displayDiv = document.getElementById("inventory-display");
+            displayDiv.innerHTML = `<p>${str}</p>`;
+            inventory.forEach((item, index) => {
+                const itemDiv = document.createElement("section");
+                itemDiv.innerHTML = `<h3>The ${index} Object</h3>`;
+                for (const property in item) {
+                    itemDiv.innerHTML += `<p>${property} = ${item[property]}</p>`;
+                }
+                displayDiv.appendChild(itemDiv);
+            });
+        </script>
+    </body>
+</html>

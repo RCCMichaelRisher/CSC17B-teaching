@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create the _Get Object</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="get.js" defer></script>
+</head>
+<body>
+  <script>
+    const url = document.location.href;
+    let $_GET = getForm(url);
+    for (const property in $_GET) {
+      document.write(`${property}=${decodeURIComponent($_GET[property])}<br>`);
+    }
+    const text = JSON.stringify($_GET);
+    document.write(`The Object Stringified = ${text}<br>`);
+    const obj = JSON.parse(text);
+    for (const property in obj) {
+      document.write(`${property}=${obj[property]}<br>`);
+    }
+  </script>
+</body>
+</html>
