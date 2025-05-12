@@ -32,11 +32,14 @@
 
         // Fill the Question with form information and display
         const question = new Question($_GET["Number"], $_GET["Question"], answers);
-        question.display();
+        question.display( document.body );
 
         // Use JSON to turn into a string
         const text = JSON.stringify(question);
 
+        let p = document.createElement("p");
+        p.textContent = "read the cookie and display the question from cookie";
+        document.body.appendChild( p );
         // Write the cookie and check it out
         setCookie("object", text, 1);
         checkCookie("object");
@@ -45,10 +48,10 @@
         // Reconstitute the JSON object back into a question object
         const obj = JSON.parse(getCookie("object"));
         const reconstitutedQuestion = new Question(obj);
-        reconstitutedQuestion.display();
+        reconstitutedQuestion.display( document.body );
 
         alert("We are now going to the PHP page to process the object through a Cookie");
     </script>
-        <button onclick="window.location.assign('cookieTransferObject.php')">Click me</button>
+        <a href="cookieTransfer.php"><button >Click me</button></a>
     </body>
 </html>

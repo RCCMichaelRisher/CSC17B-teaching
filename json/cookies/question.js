@@ -10,17 +10,17 @@ class Question {
         const nArgs = arguments.length; // The number of arguments passed to the function
         if (nArgs === 0 || nArgs > 3) { // Empty Question
             this.cat = "";
-            this.qstn = "";
+            this.quest = "";
         } else if (nArgs === 3) { // Question provided with all inputs
             this.cat = category;
-            this.qstn = question;
+            this.quest = question;
             this.ans = answers;
         } else if (nArgs === 2) { // Question provided with no answers added later
             this.cat = category;
-            this.qstn = question;
+            this.quest = question;
         } else {
             this.cat = category.cat;
-            this.qstn = category.qstn;
+            this.quest = category.qstn;
             this.ans = category.ans;
         }
     }
@@ -32,7 +32,7 @@ class Question {
 
     // Setting the Question
     setQstn(question) {
-        this.qstn = question;
+        this.quest = question;
     }
 
     // Adding an Answer
@@ -47,7 +47,7 @@ class Question {
 
     // Accessing the Question
     getQstn() {
-        return this.qstn;
+        return this.quest;
     }
 
     // Accessing one of the Answers
@@ -60,12 +60,25 @@ class Question {
     }
 
     // Displaying the Question
-    display() {
-        document.write("<p>" + this.qstn + "</p>");
+    display( parent ) {
+        let p = document.createElement( "p" );
+        p.textContent = this.quest;
+        // document.write("<p>" + this.quest + "</p>");
+        parent.appendChild( p );
         for (let i = 0; i < this.ans.length; i++) {
             if (this.ans[i].length > 0) {
-                document.write('<input type="radio" name=' + this.cat + " value=" + this.ans +
-                    ">" + this.ans[i] + "<br> </br>");
+                let label = document.createElement( "label");
+                label.textContent = this.ans[i];
+                let input = document.createElement( "input" );
+                Object.assign( input, {
+                    type: 'radio',
+                    name: this.cat,
+                    value: this.ans[i]
+                });
+                label.appendChild( input );
+                parent.appendChild( label );
+                // document.write('<input type="radio" name=' + this.cat + " value=" + this.ans +
+                    // ">" + this.ans[i] + "<br> </br>");
             }
         }
     }
