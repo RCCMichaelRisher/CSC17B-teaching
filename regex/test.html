@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Regex Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: sans-serif; margin: 2em; }
+    label { display: block; margin-top: 1em; }
+    input[type="text"] { width: 100%; max-width: 500px; }
+    .buttons { margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Regex Demo</h1>
+    <form id="demoMatch" autocomplete="off">
+      <label>
+        Regexp:
+        <input type="text" name="regex" value="\bt[a-z]+\b" size="50" required>
+      </label>
+      <label>
+        Subject string:
+        <input type="text" name="subject" value="This is a test of the JavaScript RegExp object" size="50" required>
+      </label>
+      <div class="buttons">
+        <button type="button" id="testMatchBtn">Test Match</button>
+        <button type="button" id="showMatchBtn">Show Match</button>
+      </div>
+      <label>
+        Replacement text:
+        <input type="text" name="replacement" value="replaced" size="50">
+      </label>
+      <label>
+        Result:
+        <input type="text" name="result" value="click the button to see the result" size="50" readonly>
+      </label>
+      <div class="buttons">
+        <button type="button" id="replaceBtn">Replace</button>
+      </div>
+    </form>
+  </main>
+  <script>
+    const form = document.getElementById('demoMatch');
+    const regexInput = form.elements['regex'];
+    const subjectInput = form.elements['subject'];
+    const replacementInput = form.elements['replacement'];
+    const resultInput = form.elements['result'];
+
+    function getRegExp(){
+        return new RegExp(regexInput.value);
+    }
+
+    document.getElementById('testMatchBtn').addEventListener('click', function() {
+      let re = getRegExp();
+
+      if (re.test(subjectInput.value)) {
+        alert("Successful match");
+      } else {
+        alert("No match");
+      }
+    });
+
+    document.getElementById('showMatchBtn').addEventListener('click', function(){
+      let re = getRegExp();
+      const m = re.exec(subjectInput.value);
+      if (!m) {
+        alert("No match");
+      } else {
+        let s = `Match at position ${m.index}:\n`;
+        for (let i = 0; i < m.length; i++) {
+          s += m[i] + "\n";
+        }
+        alert(s);
+      }
+    });
+
+    document.getElementById('replaceBtn').addEventListener('click', () => {
+      let re = new RegExp(regexInput.value, "g");
+      resultInput.value = subjectInput.value.replace(re, replacementInput.value);
+    });
+
+    form.addEventListener('submit', e => e.preventDefault());
+  </script>
+</body>
+</html>
