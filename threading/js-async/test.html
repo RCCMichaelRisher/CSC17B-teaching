@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Async Fetch Demo</title>
+</head>
+<body>
+  <h4>Open the Console to See Output</h4>
+  <script>
+    console.log("1. Start");
+
+    // Start fetch
+    fetch('https://jsonplaceholder.typicode.com/posts/1')
+      .then(response => {
+        console.log("4. Fetch resolved");
+        return response.json();
+      })
+      .then(data => {
+        console.log("5. Data received:", data);
+      })
+      .catch(error => {
+        console.error("Fetch error:", error);
+      });
+
+    // Simulate other work being done while fetch is in progress
+    let counter = 0;
+    let intervalId = setInterval(() => {
+      console.log(`2. Doing other work... (${++counter})`);
+      if (counter >= 3) {
+        clearInterval(intervalId);
+        console.log("3. Done with other work");
+      }
+    }, 300);
+  </script>
+</body>
+</html>
