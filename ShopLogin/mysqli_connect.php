@@ -7,7 +7,7 @@
 DEFINE('DB_USER', 'root');
 DEFINE('DB_PASSWORD', '');
 DEFINE('DB_HOST', 'localhost');
-DEFINE('DB_NAME', 'lehr');
+DEFINE('DB_NAME', 'shop');
 
 // Create a new MySQLi object for the connection:
 $dbc = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);

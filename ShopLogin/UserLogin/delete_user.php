@@ -3,7 +3,7 @@
 // This page is accessed through view_users.php.
 
 $page_title = 'Delete a User';
-include ('includes/header.html');
+include ('includes/header.php');
 echo '<h1>Delete a User</h1>';
 
 // Check for a valid user ID, through GET or POST:
@@ -13,7 +13,7 @@ if ( (isset($_GET['id'])) && (is_numeric($_GET['id'])) ) { // From view_users.ph
 	$id = $_POST['id'];
 } else { // No valid ID, kill the script.
 	echo '<p class="error">This page has been accessed in error.</p>';
-	include ('includes/footer.html'); 
+	include ('includes/footer.php'); 
 	exit();
 }
 
@@ -72,5 +72,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 mysqli_close($dbc);
 		
-include ('includes/footer.html');
+include ('includes/footer.php');
 ?>

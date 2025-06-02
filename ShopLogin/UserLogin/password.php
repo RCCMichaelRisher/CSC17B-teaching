@@ -2,7 +2,7 @@
 // This page lets a user change their password.
 
 $page_title = 'Change Your Password';
-include ('includes/header.html');
+include ('includes/header.php');
 
 // Check for form submission:
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			mysqli_close($dbc); // Close the database connection.
 
 			// Include the footer and quit the script (to not show the form).
-			include ('includes/footer.html'); 
+			include ('includes/footer.php'); 
 			exit();
 				
 		} else { // Invalid email address/password combination.
@@ -103,4 +103,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<p>Confirm New Password: <input type="password" name="pass2" size="10" maxlength="20" value="<?php if (isset($_POST['pass2'])) echo $_POST['pass2']; ?>"  /></p>
 	<p><input type="submit" name="submit" value="Change Password" /></p>
 </form>
-<?php include ('includes/footer.html'); ?>
+<?php include ('includes/footer.php'); ?>

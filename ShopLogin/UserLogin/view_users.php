@@ -3,7 +3,7 @@
 // This new version allows the results to be sorted in different ways.
 
 $page_title = 'View the Current Users';
-include ('includes/header.html');
+include ('includes/header.php');
 echo '<h1>Registered Users</h1>';
 
 require ('../mysqli_connect.php');
@@ -118,5 +118,5 @@ if ($pages > 1) {
 	
 } // End of links section.
 	
-include ('includes/footer.html');
+include ('includes/footer.php');
 ?>
